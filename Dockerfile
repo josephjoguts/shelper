@@ -10,6 +10,6 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 COPY --from=MAVEN_BUILD /build/target/shelper-0.0.1-SNAPSHOT.jar /app/
-EXPOSE 8081 80 443 22
+EXPOSE 8081 8080 443 22
 ENTRYPOINT ["java", "-jar", "shelper-0.0.1-SNAPSHOT.jar.jar"]
 
