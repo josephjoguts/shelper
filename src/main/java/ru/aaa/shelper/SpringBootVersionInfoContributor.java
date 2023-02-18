@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SpringBootVersionInfoContributor implements InfoContributor {
-    private static final String VERSION = "0";
+    private static final String VERSION = "1";
     @Override
     public void contribute(Info.Builder builder) {
         builder.withDetail("version", VERSION);

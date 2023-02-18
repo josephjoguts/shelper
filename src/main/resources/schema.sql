@@ -50,20 +50,4 @@ CREATE TABLE Event (
                        FOREIGN KEY (grant_id) REFERENCES Grants(id)
 );
 
-SELECT g.id, g.name, g.type, g.amount, g.region, g.scale
-                FROM Grants g
-                INNER JOIN Project_Grants pg ON g.id = pg.grant_id
-                INNER JOIN Projects p ON p.id = pg.project_id
-                INNER JOIN Users_Projects up ON p.id = up.project_id
-                INNER JOIN Users u ON up.user_id = u.id
-                WHERE u.name = ''
-                  AND (u.event_types IS NULL OR  ARRAY_CONTAINS(u.event_types, g.type))
-                  AND (u.scales IS NULL OR  ARRAY_CONTAINS(u.scales, g.scale))
-                  AND (u.regions IS NULL OR  ARRAY_CONTAINS(u.regions, g.region))
-                  AND g.amount BETWEEN u.minimal_grant_amount AND u.maximum_grant_amount
-                  AND g.id NOT IN (SELECT DISTINCT g.id FROM Grants g
-                                                                 INNER JOIN Project_Grants pg ON g.id = pg.grant_id
-                                                                 INNER JOIN Projects p ON p.id = pg.project_id
-                                                                 INNER JOIN Users_Projects up ON p.id = up.project_id
-                                                                 INNER JOIN Users u ON up.user_id = u.id
-                                   WHERE u.name = '');
+select Projects.name from Projects inner join Users U on U.id = Projects.user_id where Projects.finished = FALSE;
